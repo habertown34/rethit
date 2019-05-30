@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rETHit</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>rETHit v0.1</h1>
+    <p>Your account: {{ account }}</p>
+    <p>Balance: ETH {{balance}}</p>
+    <p>Contract: {{contract}}</p>
+    <form action="{% url 'index' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="content" id="input-content" />
+        <input type="submit" value="Submit post" />
+    </form>
+    <br />
+    <table>
+        {% for post in all reversed %}
+        <tr>
+            <td>#{{post.id}}:&nbsp;&nbsp;</td> 
+            <td>{{post.message}}</td>
+            <td>&nbsp;&nbsp;<span id="votes{{post.id}}">{{post.votes}}</span></td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;by: {{post.sender}}</td>
+            <td><button id="up{{post.id}}">Upvote</button></td>
+            <td><button id="down{{post.id}}">Downvote</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <script>
+        for (var i = 1; i <= {{num}}; i++)
+        {
+            $("#up" + i).click(function(){
+                $.get("{% url 'upvote' %}", {
+                    id: i
+                }, function(data) {
+                    n = parseInt($("#votes" + i).html());
+                    $("#votes" + i).html(n + 1);
+                    //alert("Worked");
+                });
+            });
+        }
+    </script>
+</body>
+</html>
