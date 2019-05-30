@@ -5,3 +5,5 @@ Scripts
 tcl
 pip-selfcheck.json
 *.pyc
+log
+db.sqlite3
