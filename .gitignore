@@ -3,3 +3,4 @@ Include
 .vscode
 Scripts
 tcl
+pip-selfcheck.json
