@@ -9,7 +9,7 @@ def init():
     abi_file.close()
 
     # paste contract address here
-    contract_address = '0xFC0aD0B2b43C832286100459C7c12a3c65b1DCd5'
+    contract_address = '0x6533D418b7B82696006493cE8380d830009befeF'
 
     # create instance
     instance = web3.eth.contract(

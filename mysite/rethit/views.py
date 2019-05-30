@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from . import eth
 from django.http import HttpResponse
+import logging
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     if request.method == 'POST':
@@ -20,5 +23,11 @@ def index(request):
     return render(request, 'rethit/index.html', context)
 
 def upvote(request):
-    votes = eth.upvote(int(request.GET['id']))
+    post_id = int(request.GET['id'])
+    votes = eth.upvote(post_id)
+    return HttpResponse(votes)
+
+def downvote(request):
+    post_id = int(request.GET['id'])
+    votes = eth.downvote(post_id)
     return HttpResponse(votes)

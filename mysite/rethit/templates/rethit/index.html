@@ -30,18 +30,31 @@
         {% endfor %}
     </table>
     <script>
-        for (var i = 1; i <= {{num}}; i++)
-        {
-            $("#up" + i).click(function(){
-                $.get("{% url 'upvote' %}", {
-                    id: i
-                }, function(data) {
-                    n = parseInt($("#votes" + i).html());
-                    $("#votes" + i).html(n + 1);
-                    //alert("Worked");
+        $(document).ready(function() {
+            for (let i = 1; i <= {{num}}; i++)
+            {
+                $("#up" + i).click(function(){
+                    $.get("{% url 'upvote' %}", {
+                        id: JSON.stringify(i)
+                    }, function(data) {
+                        n = parseInt($("#votes" + i).html());
+                        $("#votes" + i).html(n + 1);
+                    });
                 });
-            });
-        }
+            }
+            for (let i = 1; i <= {{num}}; i++)
+            {
+                $("#down" + i).click(function(){
+                    $.get("{% url 'downvote' %}", {
+                        id: JSON.stringify(i)
+                    }, function(data) {
+                        n = parseInt($("#votes" + i).html());
+                        $("#votes" + i).html(n - 1);
+                    });
+                });
+            }
+        });
+        
     </script>
 </body>
 </html>
